@@ -1,5 +1,10 @@
 <template>
   <demo-section>
+    <transition name="fade">
+      <div class="mask" v-show="show" @click="show=false"></div>
+    </transition>
+    
+    
     <demo-block :title="$t('basicUsage')">
       <van-switch v-model="checked" />
     </demo-block>
@@ -66,18 +71,20 @@ export default {
       checked: true,
       checked2: true,
       checked3: true,
-      checked4: true
+      checked4: true,
+      show:false
     };
   },
 
   methods: {
     onInput(checked) {
-      this.$dialog.confirm({
+      /*this.$dialog.confirm({
         title: this.$t('title'),
         message: this.$t('message')
       }).then(() => {
         this.checked4 = checked;
-      });
+      });*/
+      this.show=!show
     }
   }
 };
@@ -89,4 +96,19 @@ export default {
     margin: 0 15px;
   }
 }
+.mask{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:#000;
+    opacity: 0.6;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 </style>
